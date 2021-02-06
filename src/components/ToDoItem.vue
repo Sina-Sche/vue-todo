@@ -1,8 +1,8 @@
 <template>
   <div class="todo-item">
-    <div class="todo-preview">
+    <div class="todo-preview" @click="toggleSeen">
       <button>✔</button>
-      <h3 @click="toggleSeen">To Do 1</h3>
+      <h3>To Do 1</h3>
       <button class="edit">🖊</button>
       <button class="delete">✖</button>
     </div>
@@ -43,9 +43,10 @@ export default {
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #27ac22 0%, #82bc23 74%);
   border-radius: 50px;
-  width: 80vw;
+  max-width: 50vw;
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 h3 {
   color: #e4eee9;

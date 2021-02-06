@@ -1,13 +1,17 @@
 <template>
   <h1>To Do App</h1>
-  <ToDoItem />
+  <div class="app-container">
+    <Form />
+    <ToDoItem />
+  </div>
 </template>
 
 <script>
 import ToDoItem from "./components/ToDoItem";
+import Form from "./components/Form";
 export default {
   name: "App",
-  components: { ToDoItem },
+  components: { Form, ToDoItem },
 };
 </script>
 
@@ -22,5 +26,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 </style>
