@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="addNewTodo">
     <label for="todo">To Do:</label>
-    <input id="todo" v-model="todoName" placeholder="Add To Do Name" />
+    <input id="todo" v-model="todoName" placeholder="Add To Do Name" required />
 
     <label for="description">Description:</label>
     <input
@@ -12,8 +12,17 @@
 
     <div class="subtasks">
       <label for="tasks">Tasks:</label>
-      <input id="tasks" v-model="subtasks" placeholder="Add Subtasks" />
-
+      <input
+        id="tasks"
+        v-model="tempSubtasks"
+        placeholder="Add Subtasks"
+        @keyup="addTask"
+      />
+      <ul class="subtask-list">
+        <li v-for="(task, index) in subtasks" :key="index">
+          {{ task }}
+        </li>
+      </ul>
       <label for="task-description">Description:</label>
       <input
         id="task-description"
@@ -39,6 +48,18 @@ export default {
   },
   emits: ["todo-added"],
   methods: {
+    addTask(e) {
+      if (e.key === "," && this.tempSubtasks) {
+        if (!this.subtasks.includes(this.tempSubtasks)) {
+          const formattedTask = this.tempSubtasks.slice(
+            0,
+            this.tempSubtasks.length - 1
+          );
+          this.subtasks.push(formattedTask);
+          this.tempSubtasks = "";
+        }
+      }
+    },
     addNewTodo() {
       let todo = {
         todoName: this.todoName,
@@ -95,5 +116,8 @@ input {
   margin: 20px auto;
   width: 70%;
   text-align: left;
+}
+li {
+  color: #2c3e50;
 }
 </style>
