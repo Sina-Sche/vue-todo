@@ -2,16 +2,16 @@
   <h1>To Do App</h1>
   <div class="app-container">
     <Form @todo-added="addTodo" />
-    <ToDoItem :todos="todos" />
+    <ToDoList :todos="todos" />
   </div>
 </template>
 
 <script>
-import ToDoItem from "./components/ToDoItem";
+import ToDoList from "./components/ToDoList";
 import Form from "./components/Form";
 export default {
   name: "App",
-  components: { Form, ToDoItem },
+  components: { Form, ToDoList },
   data() {
     return {
       todos: [],
