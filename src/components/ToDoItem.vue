@@ -1,23 +1,23 @@
 <template>
-  <div class="todo-item">
-    <div class="todo-preview" @click="toggleSeen">
-      <button>✔</button>
-      <h3>To Do 1</h3>
+  <div class="todoItem">
+    <div class="todoPreview">
+      <button @click="toggleDone()">✔</button>
+      <h3 :class="{ done: done }" @click="toggleSeen">{{ todo.todoName }}</h3>
+
       <button class="edit">🖊</button>
-      <button class="delete">✖</button>
+      <button class="delete" @click="handleRemove(index)">✖</button>
     </div>
 
     <div v-if="seen">
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-        laboriosam, ipsam cum amet nisi minus reprehenderit nihil similique
-        rerum! Unde.
+        {{ todo.description }}
       </p>
       <ol>
-        <li>Subtask 1</li>
-        <li>Subtask 2</li>
-        <li>Subtask 3</li>
+        <li v-for="(subtask, index) in todo.subtasks" :key="index">
+          {{ subtask }}
+        </li>
       </ol>
+      <p>{{ todo.subtaskDescription }}</p>
     </div>
   </div>
 </template>
@@ -28,30 +28,44 @@ export default {
   data() {
     return {
       seen: false,
+      done: false,
     };
   },
+  props: {
+    todo: Object,
+    index: Number,
+  },
+  emits: ["removeTodo", "index"],
   methods: {
     toggleSeen() {
       this.seen = !this.seen;
+    },
+    toggleDone() {
+      this.done = !this.done;
+    },
+    handleRemove(index) {
+      this.$emit("removeTodo", index);
     },
   },
 };
 </script>
 
 <style>
-.todo-item {
+.todoItem {
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #27ac22 0%, #82bc23 74%);
   border-radius: 50px;
   width: 45vw;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 20px auto;
+  padding: 20px;
 }
 h3 {
   color: #e4eee9;
   justify-self: center;
   cursor: pointer;
+  font-size: 1.5rem;
 }
 p {
   text-align: left;
@@ -64,10 +78,10 @@ li {
   color: #f3f4f7;
   text-align: left;
 }
-.todo-preview {
+.todoPreview {
   display: grid;
   width: 100%;
-  grid-template-columns: 0.5fr 3fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 2fr 0.5fr 0.5fr;
 }
 button {
   cursor: pointer;
@@ -87,5 +101,11 @@ button {
   color: red;
   border-radius: 20px;
   padding: 0px;
+}
+.done {
+  text-decoration: line-through 2px black;
+}
+.doneTodo {
+  color: red;
 }
 </style>

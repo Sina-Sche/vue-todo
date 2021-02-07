@@ -1,17 +1,30 @@
 <template>
   <h1>To Do App</h1>
   <div class="app-container">
-    <Form />
-    <ToDoItem />
+    <Form @todo-added="addTodo" />
+    <ToDoList :todos="todos" @deleteTodo="deleteTodo" />
   </div>
 </template>
 
 <script>
-import ToDoItem from "./components/ToDoItem";
+import ToDoList from "./components/ToDoList";
 import Form from "./components/Form";
 export default {
   name: "App",
-  components: { Form, ToDoItem },
+  components: { Form, ToDoList },
+  data() {
+    return {
+      todos: [],
+    };
+  },
+  methods: {
+    addTodo(todo) {
+      this.todos.push(todo);
+    },
+    deleteTodo(index) {
+      this.todos.splice(index, 1);
+    },
+  },
 };
 </script>
 
