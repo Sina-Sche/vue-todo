@@ -43,7 +43,7 @@ export default {
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #27ac22 0%, #82bc23 74%);
   border-radius: 50px;
-  max-width: 50vw;
+  width: 45vw;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -67,7 +67,7 @@ li {
 .todo-preview {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 3fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 3fr 0.5fr 0.5fr;
 }
 button {
   cursor: pointer;
@@ -80,10 +80,12 @@ button {
 }
 .edit {
   padding: 0;
-  color: black;
+  color: white;
 }
 .delete {
   font-size: 2rem;
   color: red;
+  border-radius: 20px;
+  padding: 0px;
 }
 </style>
