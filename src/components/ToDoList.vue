@@ -15,7 +15,7 @@ import ToDoItem from "./ToDoItem";
 export default {
   name: "ToDoList",
   components: { ToDoItem },
-  props: { todos: Array, index: Number },
+  props: { todos: Array },
   data() {
     return {};
   },

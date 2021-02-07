@@ -44,6 +44,7 @@ export default {
       description: "",
       subtasks: [],
       subtaskDescription: "",
+      tempSubtasks: "",
     };
   },
   emits: ["todo-added"],
