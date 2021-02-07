@@ -2,22 +2,21 @@
   <div class="todo-item">
     <div class="todo-preview" @click="toggleSeen">
       <button>✔</button>
-      <h3>To Do 1</h3>
+      <h3>{{ todo.todoName }}</h3>
       <button class="edit">🖊</button>
       <button class="delete">✖</button>
     </div>
 
     <div v-if="seen">
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-        laboriosam, ipsam cum amet nisi minus reprehenderit nihil similique
-        rerum! Unde.
+        {{ todo.description }}
       </p>
       <ol>
-        <li>Subtask 1</li>
-        <li>Subtask 2</li>
-        <li>Subtask 3</li>
+        <li v-for="(subtask, index) in todo.subtasks" :key="index">
+          {{ subtask }}
+        </li>
       </ol>
+      <p>{{ todo.subtaskDescription }}</p>
     </div>
   </div>
 </template>
@@ -29,6 +28,9 @@ export default {
     return {
       seen: false,
     };
+  },
+  props: {
+    todo: Object,
   },
   methods: {
     toggleSeen() {
@@ -46,7 +48,8 @@ export default {
   width: 45vw;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 20px auto;
+  padding: 20px;
 }
 h3 {
   color: #e4eee9;
