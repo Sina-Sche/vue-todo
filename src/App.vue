@@ -2,7 +2,7 @@
   <h1>To Do App</h1>
   <div class="app-container">
     <Form @todo-added="addTodo" />
-    <ToDoList :todos="todos" />
+    <ToDoList :todos="todos" @deleteTodo="deleteTodo" />
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
   methods: {
     addTodo(todo) {
       this.todos.push(todo);
+    },
+    deleteTodo(index) {
+      this.todos.splice(index, 1);
     },
   },
 };

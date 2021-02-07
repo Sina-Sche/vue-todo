@@ -5,7 +5,7 @@
       <h3 :class="{ done: done }" @click="toggleSeen">{{ todo.todoName }}</h3>
 
       <button class="edit">🖊</button>
-      <button class="delete">✖</button>
+      <button class="delete" @click="handleRemove(index)">✖</button>
     </div>
 
     <div v-if="seen">
@@ -33,13 +33,18 @@ export default {
   },
   props: {
     todo: Object,
+    index: Number,
   },
+  emits: ["removeTodo", "index"],
   methods: {
     toggleSeen() {
       this.seen = !this.seen;
     },
     toggleDone() {
       this.done = !this.done;
+    },
+    handleRemove(index) {
+      this.$emit("removeTodo", index);
     },
   },
 };
