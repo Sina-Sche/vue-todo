@@ -9,6 +9,7 @@
 <script>
 import ToDoList from "./components/ToDoList";
 import Form from "./components/Form";
+import { getAllTodos } from "./api/todos";
 export default {
   name: "App",
   components: { Form, ToDoList },
@@ -17,10 +18,10 @@ export default {
       todos: [],
     };
   },
+  async created() {
+    this.todos = await getAllTodos();
+  },
   methods: {
-    addTodo(todo) {
-      this.todos.push(todo);
-    },
     deleteTodo(index) {
       this.todos.splice(index, 1);
     },
