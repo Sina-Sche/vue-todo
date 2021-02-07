@@ -1,8 +1,8 @@
 <template>
   <h1>To Do App</h1>
   <div class="app-container">
-    <Form />
-    <ToDoItem />
+    <Form @todo-added="addTodo" />
+    <ToDoItem :todos="todos" />
   </div>
 </template>
 
@@ -12,6 +12,16 @@ import Form from "./components/Form";
 export default {
   name: "App",
   components: { Form, ToDoItem },
+  data() {
+    return {
+      todos: [],
+    };
+  },
+  methods: {
+    addTodo(todo) {
+      this.todos.push(todo);
+    },
+  },
 };
 </script>
 

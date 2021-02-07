@@ -1,19 +1,27 @@
 <template>
-  <form>
+  <form @submit.prevent="addNewTodo">
     <label for="todo">To Do:</label>
-    <input id="todo" placeholder="Add To Do Name" />
+    <input id="todo" v-model="todoName" placeholder="Add To Do Name" />
 
     <label for="description">Description:</label>
-    <input id="todo-description" placeholder="Describe the To Do" />
+    <input
+      id="todo-description"
+      v-model="description"
+      placeholder="Describe the To Do"
+    />
 
     <div class="subtasks">
       <label for="tasks">Tasks:</label>
-      <input id="tasks" placeholder="Add Subtasks" />
+      <input id="tasks" v-model="subtasks" placeholder="Add Subtasks" />
 
       <label for="task-description">Description:</label>
-      <input id="description" placeholder="Add a description" />
+      <input
+        id="task-description"
+        v-model="subtaskDescription"
+        placeholder="Add a description"
+      />
     </div>
-    <input id="submit" type="submit" value="+" />
+    <input id="submit" type="submit" value="+" @submit.prevent="addNewTodo" />
   </form>
   <div class="form-results"></div>
 </template>
@@ -22,7 +30,28 @@
 export default {
   name: "Form",
   data() {
-    return {};
+    return {
+      todoName: "",
+      description: "",
+      subtasks: [],
+      subtaskDescription: "",
+    };
+  },
+  emits: ["todo-added"],
+  methods: {
+    addNewTodo() {
+      let todo = {
+        todoName: this.todoName,
+        description: this.description,
+        subtasks: this.subtasks,
+        subtaskDescription: this.subtaskDescription,
+      };
+      this.$emit("todo-added", todo);
+      this.todoName = "";
+      this.description = "";
+      this.subtasks = [];
+      this.subtaskDescription = "";
+    },
   },
 };
 </script>
