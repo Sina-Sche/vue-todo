@@ -9,21 +9,27 @@
 <script>
 import ToDoList from "./components/ToDoList";
 import Form from "./components/Form";
-import { getAllTodos } from "./api/todos";
+import { deleteTodoById, getAllTodos, postTodo } from "./api/todos";
 export default {
   name: "App",
   components: { Form, ToDoList },
   data() {
     return {
       todos: [],
+      todo: {},
     };
   },
   async created() {
     this.todos = await getAllTodos();
   },
   methods: {
-    deleteTodo(index) {
-      this.todos.splice(index, 1);
+    async deleteTodo(id) {
+      await deleteTodoById(id);
+      this.todos = await getAllTodos();
+    },
+    async addTodo(todo) {
+      const newTodo = await postTodo(todo);
+      this.todos.push(newTodo);
     },
   },
 };
