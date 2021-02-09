@@ -1,11 +1,12 @@
 <template>
   <div class="todoItem">
     <div class="todoPreview">
-      <button @click="toggleDone()">✔</button>
+      <button @click="toggleDone()" v-if="!done">✔</button>
+      <button @click="toggleDone()" v-else>↩</button>
       <h3 :class="{ done: done }" @click="toggleSeen">{{ todo.todoName }}</h3>
 
       <button class="edit">🖊</button>
-      <button class="delete" @click="handleRemove(index)">✖</button>
+      <button class="delete" @click="handleRemove(todo.id)">✖</button>
     </div>
 
     <div v-if="seen">
@@ -33,9 +34,9 @@ export default {
   },
   props: {
     todo: Object,
-    index: Number,
+    id: Number,
   },
-  emits: ["removeTodo", "index"],
+  emits: ["removeTodo", "id"],
   methods: {
     toggleSeen() {
       this.seen = !this.seen;
@@ -43,8 +44,8 @@ export default {
     toggleDone() {
       this.done = !this.done;
     },
-    handleRemove(index) {
-      this.$emit("removeTodo", index);
+    handleRemove(id) {
+      this.$emit("removeTodo", id);
     },
   },
 };

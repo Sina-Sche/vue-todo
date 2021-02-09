@@ -1,11 +1,10 @@
 <template>
   <ul>
     <ToDoItem
-      v-for="(todo, index) in todos"
-      :key="index"
+      v-for="todo in todos"
+      :key="todo.id"
       :todo="todo"
-      :index="index"
-      @removeTodo="handleRemoveTodo(index)"
+      @removeTodo="handleRemoveTodo"
     />
   </ul>
 </template>
@@ -16,12 +15,13 @@ export default {
   name: "ToDoList",
   components: { ToDoItem },
   props: { todos: Array },
+  emits: ["deleteTodo", "id"],
   data() {
     return {};
   },
   methods: {
-    handleRemoveTodo(index) {
-      this.$emit("deleteTodo", index);
+    handleRemoveTodo(id) {
+      this.$emit("deleteTodo", id);
     },
   },
 };
