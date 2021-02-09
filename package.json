@@ -2,6 +2,7 @@
   "name": "vue-todo",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:3000/todos",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
