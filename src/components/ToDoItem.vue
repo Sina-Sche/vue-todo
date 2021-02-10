@@ -57,7 +57,7 @@ export default {
   background: rgba(76, 161, 87, 0.45);
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
-  width: 45vw;
+  width: 60vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -66,6 +66,12 @@ export default {
   color: #e4eee9;
   text-align: left;
 }
+@media only screen and (min-width: 900px) {
+  .todoItem {
+    width: 45vw;
+  }
+}
+
 h3 {
   justify-self: center;
   cursor: pointer;

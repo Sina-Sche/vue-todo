@@ -101,13 +101,18 @@ form {
   border-radius: 50px;
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 70vw;
   padding: 20px;
   margin: 0 auto 20px;
   text-align: left;
   position: relative;
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.15);
+}
+@media only screen and (min-width: 900px) {
+  form {
+    width: 45vw;
+  }
 }
 
 #submit {
@@ -150,6 +155,11 @@ li {
 p {
   color: white;
   font-size: 1rem;
+}
+button {
+  border: none;
+  background: none;
+  color: red;
 }
 .error {
   color: red;
