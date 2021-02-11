@@ -17,22 +17,31 @@
     </button>
     <Form v-if="form" @todo-added="addTodo" />
     <p>💡 Click the To Do Name to see more details</p>
-    <ToDoList :todos="todos" @deleteTodo="deleteTodo" />
+    <ToDoList :todos="todos" @deleteTodo="deleteTodo" @editTodo="editTodo" />
+    <UpdateForm v-if="updateForm" :id="id" @todo-updated="updateTodo" />
   </div>
 </template>
 
 <script>
 import ToDoList from "./components/ToDoList";
 import Form from "./components/Form";
-import { deleteTodoById, getAllTodos, postTodo } from "./api/todos";
+import UpdateForm from "./components/UpdateForm";
+import {
+  deleteTodoById,
+  getAllTodos,
+  postTodo,
+  updateTodoById,
+} from "./api/todos";
 export default {
   name: "App",
-  components: { Form, ToDoList },
+  components: { Form, ToDoList, UpdateForm },
   data() {
     return {
       todos: [],
       todo: {},
+      id: Number,
       form: false,
+      updateForm: false,
       addClass: "add",
       toggleClass: "toggle",
       cancelClass: "cancel",
@@ -52,6 +61,16 @@ export default {
     async addTodo(todo) {
       const newTodo = await postTodo(todo);
       this.todos.push(newTodo);
+    },
+    editTodo(id) {
+      this.updateForm = !this.updateForm;
+      this.id = id;
+    },
+    async updateTodo(todo) {
+      this.updateForm = !this.updateForm;
+      const updatedTodo = await updateTodoById(todo);
+      this.todos = await getAllTodos();
+      return updatedTodo;
     },
   },
 };

@@ -5,7 +5,7 @@
       <button @click="toggleDone()" v-else class="reverse">↩</button>
       <h3 :class="{ done: done }" @click="toggleSeen">{{ todo.todoName }}</h3>
 
-      <button class="edit">🖊</button>
+      <button class="edit" @click="handleEdit(todo.id)">🖊</button>
       <button class="delete" @click="handleRemove(todo.id)">✖</button>
     </div>
     <div v-if="seen">
@@ -36,7 +36,7 @@ export default {
     todo: Object,
     id: Number,
   },
-  emits: ["removeTodo", "id"],
+  emits: ["removeTodo", "editTodo"],
   methods: {
     toggleSeen() {
       this.seen = !this.seen;
@@ -46,6 +46,9 @@ export default {
     },
     handleRemove(id) {
       this.$emit("removeTodo", id);
+    },
+    handleEdit(id) {
+      this.$emit("editTodo", id);
     },
   },
 };
@@ -57,7 +60,7 @@ export default {
   background: rgba(76, 161, 87, 0.45);
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
-  width: 60vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -82,7 +85,10 @@ h5 {
 }
 p {
   margin-left: 20px;
+  text-align: left;
+  word-wrap: break-word;
 }
+
 li {
   color: white;
   text-align: left;
@@ -90,7 +96,7 @@ li {
 .todoPreview {
   display: grid;
   width: 100%;
-  grid-template-columns: 0.5fr 2fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr;
 }
 button {
   cursor: pointer;

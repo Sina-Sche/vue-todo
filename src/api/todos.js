@@ -27,3 +27,16 @@ export async function deleteTodoById(id) {
     method: "DELETE",
   });
 }
+
+export async function updateTodoById(todo) {
+  const id = todo.id;
+  const response = await fetch(`http://localhost:3000/todos/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(todo),
+  });
+  const updatedTodo = response.json();
+  return updatedTodo;
+}
