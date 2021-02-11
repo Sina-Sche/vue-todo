@@ -5,6 +5,7 @@
       :key="todo.id"
       :todo="todo"
       @removeTodo="handleRemoveTodo"
+      @editTodo="handleEditTodo"
     />
   </ul>
 </template>
@@ -15,7 +16,7 @@ export default {
   name: "ToDoList",
   components: { ToDoItem },
   props: { todos: Array },
-  emits: ["deleteTodo", "id"],
+  emits: ["deleteTodo", "editTodo"],
   data() {
     return {};
   },
@@ -23,6 +24,16 @@ export default {
     handleRemoveTodo(id) {
       this.$emit("deleteTodo", id);
     },
+    handleEditTodo(id) {
+      this.$emit("editTodo", id);
+    },
   },
 };
 </script>
+
+<style scoped>
+ul {
+  margin: 0;
+  padding: 0;
+}
+</style>
