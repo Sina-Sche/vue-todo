@@ -1,19 +1,19 @@
 <template>
-  <div class="todoItem">
+  <div class="todoItem" :class="{ todoDone: done }">
     <div class="todoPreview">
       <button @click="toggleDone()" v-if="!done">✔</button>
-      <button @click="toggleDone()" v-else>↩</button>
+      <button @click="toggleDone()" v-else class="reverse">↩</button>
       <h3 :class="{ done: done }" @click="toggleSeen">{{ todo.todoName }}</h3>
 
       <button class="edit">🖊</button>
       <button class="delete" @click="handleRemove(todo.id)">✖</button>
     </div>
-
     <div v-if="seen">
       <p>
         {{ todo.description }}
       </p>
       <ol>
+        <h5>Subtasks:</h5>
         <li v-for="(subtask, index) in todo.subtasks" :key="index">
           {{ subtask }}
         </li>
@@ -51,32 +51,40 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .todoItem {
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #27ac22 0%, #82bc23 74%);
-  border-radius: 50px;
-  width: 45vw;
+  backdrop-filter: blur(10px);
+  background: rgba(76, 161, 87, 0.45);
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  width: 60vw;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   margin: 20px auto;
-  padding: 20px;
-}
-h3 {
+  border: 1px solid white;
   color: #e4eee9;
+  text-align: left;
+}
+@media only screen and (min-width: 900px) {
+  .todoItem {
+    width: 45vw;
+  }
+}
+
+h3 {
   justify-self: center;
   cursor: pointer;
   font-size: 1.5rem;
 }
+h5 {
+  font-size: 1rem;
+}
 p {
-  text-align: left;
-  margin: 20px;
-  color: #f3f4f7;
+  margin-left: 20px;
 }
 li {
-  align-self: center;
-  justify-self: center;
-  color: #f3f4f7;
+  color: white;
   text-align: left;
 }
 .todoPreview {
@@ -87,26 +95,28 @@ li {
 button {
   cursor: pointer;
   border: none;
-  color: green;
+  color: rgb(151, 221, 151);
   background: none;
   font-size: 2rem;
   justify-items: flex-start;
   margin-right: 5px;
 }
 .edit {
-  padding: 0;
   color: white;
 }
 .delete {
   font-size: 2rem;
-  color: red;
+  color: rgb(241, 46, 46);
   border-radius: 20px;
   padding: 0px;
 }
-.done {
-  text-decoration: line-through 2px black;
+.reverse {
+  color: #2c3e50;
 }
-.doneTodo {
-  color: red;
+.done {
+  text-decoration: line-through 2px red;
+}
+.todoDone {
+  background: rgba(189, 192, 190, 0.575);
 }
 </style>
